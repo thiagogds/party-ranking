@@ -1,0 +1,19 @@
+{
+  "meteor": {
+    "git": "https://github.com/meteor/meteor.git",
+    "branch": "master",
+    "commit": "f07715dc70de16a7aab84e56ab0c6cbd9c1f9dc6"
+  },
+  "dependencies": {
+    "basePackages": {
+      "tracker": {}
+    },
+    "packages": {
+      "tracker": {
+        "git": "https://github.com/svda/meteor-tracker.git",
+        "tag": "v0.1.0",
+        "commit": "e436fe8a097bf2090ab742306c9cc31a826e41b6"
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+<head>
+  <title>Party Ranking</title>
+</head>
+
+<body>
+    <div style="background-color: #3B5998; padding: 15px;">
+        <div class="badge">
+            {{> hello}}
+            {{> search }}
+        </div>
+        <h1 style="float: right; color: white; vertical-align: baseline;">Party Ranking</h1>
+    </div>
+    {{#if currentUser}}
+        {{> list}}
+    {{/if}}
+</body>
+
+<template name="hello">
+    <span>
+        {{loginButtons}}
+    </span>
+</template>
+
+<template name="search">
+    {{#if currentUser}}
+    <span>
+        <input type=text id="event" placeholder="Digite o ID do evento…" style="margin: 5px;"/>
+        <button id="send" class="btn">Ver</button>
+    </span>
+    {{/if}}
+</template>
+
+<template name="list">
+    {{#if currentUser}}
+        {{#if femaleAttendings}}
+            <br/>
+            <div class="badge badge-important" style="height: 25px; padding: 5px; float: left; padding-top: 10px; font-size: 20px;">
+                Event name: {{eventName}}
+            </div>
+            <br/>
+            <br/>
+            <div style="padding: 15px;">
+                <div class="badge badge-important" style="height: 25px; padding: 5px; float: left; padding-top: 10px; font-size: 20px;">
+                    Ladies: {{females}}
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="span14 well" style="margin-left: 15px;margin-right: 15px;margin-top: 10px;">
+                {{#each femaleAttendings }}
+                    <span class="span1" style="margin-bottom: 10px;">
+                        <a href="{{ link }}" target="_blank">
+                            <img class="thumbnail" height="80px" width="80px" src="https://graph.facebook.com/{{id}}/picture/?type=large&height=200" />
+                        </a>
+                        <button class="vote btn" user="{{ id }}">+1</button>
+                        <span class="badge badge-success" style="padding: 6px 12px;">{{ votes }}</span>
+                    </span>
+                {{/each}}
+            </div>
+        {{/if}}
+        <br/>
+        <br/>
+        {{#if maleAttendings}}
+            <div style="padding: 15px;">
+                <div class="badge badge-important" style="height: 25px; padding: 5px; float: left; padding-top: 10px; font-size: 20px;">
+                    Gentlemens: {{males}}
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="span14 well" style="margin-left: 15px;margin-right: 15px;margin-top: 10px;">
+                {{#each maleAttendings }}
+                    <span class="span1" style="margin-bottom: 10px;">
+                        <a href="{{ link }}" target="_blank">
+                            <img class="thumbnail" height="80px" width="80px" src="https://graph.facebook.com/{{id}}/picture/?type=large&height=200" />
+                        </a>
+                        <button class="vote btn" user="{{ id }}">+1</button>
+                        <span class="badge badge-success" style="padding: 6px 12px;">{{ votes }}</span>
+                    </span>
+                {{/each}}
+            </div>
+        {{/if}}
+    {{/if}}
+</template>
