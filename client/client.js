@@ -4,8 +4,8 @@ Meteor.subscribe('Attendings');
 Meteor.subscribe('Events');
 Meteor.subscribe('FacebookEvents');
 
-var AppTracker = new Tracker();
-AppTracker.register(GoogleAnalyticsTracker, {account: 'UA-39154996-1'});
+//var AppTracker = new Tracker();
+//AppTracker.register(GoogleAnalyticsTracker, {account: 'UA-39154996-1'});
 
 var eventIDFromUrl = History.getHashByState();
 eventIDFromUrl = eventIDFromUrl.replace("/", "");
@@ -17,11 +17,16 @@ Session.set("event", eventIDFromUrl);
 Meteor.loginWithFacebook({
     requestPermissions : ['email', 'user_events']
 },function (err) {
-    Meteor.call("getAttendings", Session.get("event"));
     /* Caso de merda printa mensagem */
     if (err) {
         Session.set('errorMessage', err.reason || 'Unknown error');
     }
+});
+
+Meteor.autorun(function() {
+  if (Meteor.user()) {
+    Meteor.call("getAttendings", Session.get("event"));
+  }
 });
 
 /*
