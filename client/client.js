@@ -8,7 +8,7 @@ Meteor.subscribe('FacebookEvents');
 //AppTracker.register(GoogleAnalyticsTracker, {account: 'UA-39154996-1'});
 
 var eventIDFromUrl = History.getHashByState();
-eventIDFromUrl = eventIDFromUrl.replace("/", "");
+eventIDFromUrl = eventIDFromUrl.replace(/\//g, "");
 
 Session.set("event", eventIDFromUrl);
 
