@@ -181,16 +181,8 @@ Template.list.males = function () {
 }
 
 /*Pega o nome do evento*/
-Template.list.eventName = function() {
-    var name = "";
-
-    try {
-        var eventId = Session.get("event");
-        var event = FacebookEvents.findOne({id: eventId});
-        name = event.name;
-    }
-    catch(err){
-    }
-
-    return name
+Template.list.event = function() {
+    var eventId = Session.get("event");
+    var event = FacebookEvents.findOne({id: eventId});
+    return event
 }
