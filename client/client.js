@@ -23,6 +23,8 @@ Meteor.loginWithFacebook({
     }
 });
 
+Meteor.call("getAttendings", Session.get("event"));
+
 Meteor.autorun(function() {
   if (Meteor.user()) {
     Meteor.call("getAttendings", Session.get("event"));
