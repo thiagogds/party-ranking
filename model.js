@@ -17,6 +17,6 @@ Votes.allow({
 /* Permitindo ao client inserir eventos */
 Events.allow({
     insert : function () {
-        return true
+        return true;
     }
 });
