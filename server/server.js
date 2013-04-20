@@ -53,7 +53,7 @@ Meteor.methods({
                         att.events = [eventId];
                         Attendings.insert(att);
                     } else if (attending.events.indexOf(eventId) === -1) {
-                        attending.events.push(eventId);
+                        Attendings.update(attending._id, {$addToSet: {events: eventId}})
                     }
                 });
             }
