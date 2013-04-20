@@ -70,7 +70,9 @@ setInterval(function () {
 
 /* Aguarda o usuário escolher o evento */
 Template.search.events({
-    'click #send' : function () {
+    'click #send' : function (evt) {
+        evt.preventDefault();
+
         var eventId = $("#event").val();
         Session.set("event", $("#event").val());
         History.setHash("/" + eventId);
@@ -107,7 +109,7 @@ Template.list.events({
 });
 
 /* Busca lista de pessoas no evento do sexo feminino e quantos votos ela tem */
-Template.list.femaleAttendings = function () {
+Template.female.femaleAttendings = function () {
     /* Busca lista de pessoas no evento do sexo feminino */
     var attendings = Attendings.find({
         "events"  : {$in : [Session.get("event")]},
@@ -136,7 +138,7 @@ Template.list.femaleAttendings = function () {
 };
 
 /* Busca lista de pessoas no evento do sexo masculino e quantos votos ela tem */
-Template.list.maleAttendings = function () {
+Template.male.maleAttendings = function () {
     /* Busca lista de pessoas no evento do sexo masculino */
     var attendings = Attendings.find({
         "events"  : {$in : [Session.get("event")]},
