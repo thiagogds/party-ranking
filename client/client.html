@@ -63,35 +63,40 @@
 </template>
 
 <template name="list">
-    {{#if currentUser}}
-        <header id="overview" class="jumbotron subhead" style="padding-top: 31px">
-            <div class="container">
-                <a href="http://www.facebook.com/events/{{event.id}}" target="_blank"><h2>Name: {{event.name}}</h2></a>
-                <p class="lead">Ladies: {{females}}</p>
-                <p class="lead">Gentlemen: {{males}}</p>
-            </div>
-        </header>
-    <div class="tabbable">
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="#female" data-toggle="tab">Ladies</a>
-            </li>
-            <li>
-                <a href="#male" data-toggle="tab">Gentlemen</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="female">
-                <div class="row-fluid">
-                    {{> female }}
-                </div>
-            </div>
-            <div class="tab-pane" id="male">
-                <div class="row-fluid">
-                    {{> male }}
-                </div>
-            </div>
-        </div>
-    </div>
+    {{#if currentUser }}
+      {{#if isLoading}}
+          <h1 style="margin-top: 200px">Estamos carregando...</h1>
+      {{/if}}
+      {{#if females }}
+          <header id="overview" class="jumbotron subhead" style="padding-top: 31px">
+              <div class="container">
+                  <a href="http://www.facebook.com/events/{{event.id}}" target="_blank"><h2>Name: {{event.name}}</h2></a>
+                  <p class="lead">Ladies: {{females}}</p>
+                  <p class="lead">Gentlemen: {{males}}</p>
+              </div>
+          </header>
+      <div class="tabbable">
+          <ul class="nav nav-tabs">
+              <li class="active">
+                  <a href="#female" data-toggle="tab">Ladies</a>
+              </li>
+              <li>
+                  <a href="#male" data-toggle="tab">Gentlemen</a>
+              </li>
+          </ul>
+          <div class="tab-content">
+              <div class="tab-pane active" id="female">
+                  <div class="row-fluid">
+                      {{> female }}
+                  </div>
+              </div>
+              <div class="tab-pane" id="male">
+                  <div class="row-fluid">
+                      {{> male }}
+                  </div>
+              </div>
+          </div>
+      </div>
+      {{/if}}
     {{/if}}
 </template>

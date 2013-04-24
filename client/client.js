@@ -188,3 +188,14 @@ Template.list.event = function() {
     var event = FacebookEvents.findOne({id: eventId});
     return event
 }
+
+Template.list.isLoading = function() {
+    var attendings = Attendings.find({
+        "events"  : {$in : [Session.get("event")]},
+        "gender" : "female"
+    }).fetch();
+
+    var event = Session.get("event")
+
+    return (attendings.length == 0 && !(event == ""));
+}
