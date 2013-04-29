@@ -189,7 +189,7 @@ Template.list.event = function() {
     return event
 }
 
-Template.list.isLoading = function() {
+Template.loadingEvent.isLoading = function() {
     var attendings = Attendings.find({
         "events"  : {$in : [Session.get("event")]},
         "gender" : "female"

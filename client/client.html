@@ -5,6 +5,7 @@
             <ul class="nav">
                 <li class="brand"><h1>Party Ranking</h1></li>
                 <li style="padding: 10px 20px 0 0 ">{{> search }}</li>
+                <li style="padding: 25px 15px 0 0 ">{{> loadingEvent }}</li>
                 <li class="brand" style="padding-top: 25px">{{loginButtons}}</li>
             </ul>
         </div>
@@ -15,6 +16,14 @@
       {{/if}}
     </div>
 </body>
+
+<template name="loadingEvent">
+{{#if currentUser }}
+    {{#if isLoading}}
+        <img src="ajax-loader.gif"/>
+    {{/if}}
+{{/if}}
+</template>
 
 <template name="search">
     {{#if currentUser}}
@@ -64,9 +73,6 @@
 
 <template name="list">
     {{#if currentUser }}
-      {{#if isLoading}}
-          <h1 style="margin-top: 200px">Estamos carregando...</h1>
-      {{/if}}
       {{#if females }}
           <header id="overview" class="jumbotron subhead" style="padding-top: 31px">
               <div class="container">
