@@ -45,7 +45,7 @@ function vote (eventId, userId) {
     var attending = Attendings.findOne({id : userId});
 
     var canVote =  !Votes.findOne({
-        voterId     : Meteor.user._id,
+        voterId     : Meteor.userId(),
         attendingId : attending.id,
         event       : eventId
     });
@@ -53,7 +53,7 @@ function vote (eventId, userId) {
 
     if (canVote) {
         Votes.insert({
-            voterId     : Meteor.user._id,
+            voterId     : Meteor.userId(),
             attendingId : attending.id,
             event       : eventId
         });
