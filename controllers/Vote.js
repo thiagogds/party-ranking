@@ -37,7 +37,7 @@ module.exports = function (app) {
                 if (error) {
                     response.send({error : error});
                 } else {
-                    response.send({vote});
+                    response.send({vote : vote});
                 }
             });
         });
@@ -67,7 +67,7 @@ module.exports = function (app) {
                 } else {
                     vote.remove(function (error) {
                         if (error) {
-                            response.send({error});
+                            response.send({error : error});
                         } else {
                             response.send(null);
                         }
