@@ -1,0 +1,11 @@
+{
+  "name": "party-ranking",
+  "version": "0.0.1",
+  "dependencies": {
+    "socket.io-client": "0.9.11",
+    "express": "3.0.0rc3",
+    "mongoose": "3.0.1",
+    "restler": "2.0.1",
+    "passport-facebook": "0.1.5"
+  }
+}
