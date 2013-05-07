@@ -16,6 +16,8 @@ app.use('/', express.static('public'));
 
 require('./controllers/Auth')(app);
 require('./controllers/Party')(app);
+require('./controllers/Vote')(app);
+require('./controllers/Category')(app);
 
 /*  Ativando o server */
 app.listen(config.server.port);

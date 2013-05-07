@@ -15,7 +15,7 @@ module.exports = function (app) {
     app.get('/party/:id', function (request, response) {
         var data = {
             'access_token' : request.param('token'),
-            'fields'       : 'attending.fields(gender,link), name'
+            'fields'       : 'attending.fields(gender,link,name), name'
         };
 
         /* Pegando evento na Graph */
@@ -29,11 +29,11 @@ module.exports = function (app) {
                 if (error) {
                     response.send({error : error});
                 } else {
-                    response.send({
+                    response.send({party : {
                         votes      : votes,
                         name       : data.name,
                         attendings : data.attending.data
-                    });
+                    }});
                 }
             });
         });

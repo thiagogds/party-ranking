@@ -1,7 +1,55 @@
-<html>
+<html ng-app>
     <head>
         <title>party ranking</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+        <script>
+            function Party ($scope, $http) {
+
+                var token = 'BAAI6catahJ4BADSdC3DW0ju9DlNstsHpRofiZBcpG3rejsImijkoZBZBxbB7cLsQL5mRvvrQMb42gF0v3hpF2PZCLG5zaFqd9eP7ZAPA9g1YZCMVEtXJC8w1ZCZC1qvaZBkcYC1keHgxhrr79CCCsHbnF6wPEQNH5KRABkevucLQC5P4oFdfHbRLoxVINDZCEB6tmGEYk7XUKTGOtxkI5p9B6h9Yntlg3JQaIZD';
+
+                $scope.attendings = [];
+                $scope.addAttending = function (attending) {
+                    $scope.attendings.push({name : attending.name})
+                };
+
+                $http.get('/party/528109093914436?token='+token).success(function (data) {  
+                    if (data.party) {
+                        for (var i = 0; i < data.party.attendings.length; i++) {
+                            $scope.addAttending(data.party.attendings[i]);
+                        }
+                    }
+                });
+            }
+        </script>
     </head>
     <body>
+        <div id="header">
+            <div id="logo">
+                <a href="/">party ranking</a>
+            </div>
+            <div id="signup">
+                <a href="/auth">login</a>
+            </div>
+        </div>
+        <div ng-controller="Party">
+            <div id="party-info">
+            
+            </div>
+            <ul id="party-attendings">
+                <li ng-repeat="attending in attendings">
+                    <div class="attending-thumbnail">
+                        
+                    </div>
+                    <div class="attending-name">
+                        {{attending.name}}
+                    </div>
+                    <ul class="attending-votes">
+                    </ul>
+                    <div class="attending-vote">
+
+                    </div>
+                </li>
+            </ul>
+        </div>
     </body>
 </html>

@@ -7,6 +7,8 @@
 module.exports = function (app) {
     "use strict";
 
+    var Vote = require('../models/Vote');
+
     /** Cadastra voto
      *
      * @autor : Rafael Erthal
@@ -15,7 +17,7 @@ module.exports = function (app) {
     app.post('/vote', function (request, response) {
         var data = {
             'access_token' : request.param('token'),
-            'fields'       : 'attending.fields(gender,link), name'
+            'fields'       : 'name'
         };
 
         /* Pegando evento na Graph */
@@ -24,20 +26,34 @@ module.exports = function (app) {
         ).on('fail', function (data) {
             response.send({error : data});
         }).on('success',function (data) {
-            /* Criando voto */
-            var vote = new require('../models/Vote') ({
+            /* Verificando se o voto ja foi computado */
+            Vote.find({
                 user     : request.param('id', null),
                 voted    : request.param('user', null),
                 party    : request.param('party', null),
-                date     : new Date(),
                 category : request.param('category', null)
-            });
-            /* Salvando voto */
-            vote.save(function (error) {
+            }, function (error, votes) {
                 if (error) {
                     response.send({error : error});
+                } else if (votes.length > 0) {
+                    response.send({error : {message : 'Duplicated vote'}});
                 } else {
-                    response.send({vote : vote});
+                    /* Criando voto */
+                    var vote = new Vote({
+                        user     : request.param('id', null),
+                        voted    : request.param('user', null),
+                        party    : request.param('party', null),
+                        date     : new Date(),
+                        category : request.param('category', null)
+                    });
+                    /* Salvando voto */
+                    vote.save(function (error) {
+                        if (error) {
+                            response.send({error : error});
+                        } else {
+                            response.send({vote : vote});
+                        }
+                    });
                 }
             });
         });
@@ -51,7 +67,7 @@ module.exports = function (app) {
     app.del('/vote/:id', function (request, response) {
         var data = {
             'access_token' : request.param('token'),
-            'fields'       : 'attending.fields(gender,link), name'
+            'fields'       : 'name'
         };
 
         /* Pegando evento na Graph */
@@ -61,7 +77,7 @@ module.exports = function (app) {
             response.send({error : data});
         }).on('success',function (data) {
             /* Buscando voto no banco */
-            require('../models/Vote').findById(request.params.id, function (error, vote) {
+            Vote.findById(request.params.id, function (error, vote) {
                 if (error) {
                     response.send(error);
                 } else {
