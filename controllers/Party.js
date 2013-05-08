@@ -13,6 +13,12 @@ module.exports = function (app) {
      * @since : 2012-07
      */
     app.get('/party/:id', function (request, response) {
+
+        console.log(request.user);
+
+        response.contentType('json');
+        response.header('Access-Control-Allow-Origin', '*');
+
         var data = {
             'access_token' : request.param('token'),
             'fields'       : 'attending.fields(gender,link,name), name'
@@ -32,7 +38,7 @@ module.exports = function (app) {
                     response.send({party : {
                         votes      : votes,
                         name       : data.name,
-                        attendings : data.attending.data
+                        attendings : data.attending ? data.attending.data : []
                     }});
                 }
             });

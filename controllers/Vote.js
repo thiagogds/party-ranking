@@ -15,6 +15,9 @@ module.exports = function (app) {
      * @since : 2012-07
      */
     app.post('/vote', function (request, response) {
+        response.contentType('json');
+        response.header('Access-Control-Allow-Origin', '*');
+
         var data = {
             'access_token' : request.param('token'),
             'fields'       : 'name'
@@ -65,6 +68,9 @@ module.exports = function (app) {
      * @since : 2012-07
      */
     app.del('/vote/:id', function (request, response) {
+        response.contentType('json');
+        response.header('Access-Control-Allow-Origin', '*');
+        
         var data = {
             'access_token' : request.param('token'),
             'fields'       : 'name'

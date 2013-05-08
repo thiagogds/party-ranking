@@ -13,6 +13,9 @@ module.exports = function (app) {
      * @since : 2012-07
      */
     app.get('/categories', function (request, response) {
+        response.contentType('json');
+        response.header('Access-Control-Allow-Origin', '*');
+        
         require('../models/Category').find(function (error, categories) {
             if (error) {
                 response.send({error : error});

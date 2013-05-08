@@ -1,6 +1,10 @@
 module.exports = {
-    host : {
-        port : 8080,
+    server : {
+        port : 3000,
+        host : 'localhost'
+    },
+    frontend : {
+        port : 3001,
         host : 'localhost'
     },
     mongodb : {

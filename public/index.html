@@ -1,22 +1,34 @@
-<html ng-app>
+<!doctype html>
+<html ng-app="party">
     <head>
         <title>party ranking</title>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-resource.min.js"></script>
+        <script src="/js/party-ranking.js"></script>
+        <script src="/js/lib/localstorage.js"></script>
         <script>
-            function Party ($scope, $http) {
+            (function(d){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+            }(document));
 
-                var token = 'BAAI6catahJ4BADSdC3DW0ju9DlNstsHpRofiZBcpG3rejsImijkoZBZBxbB7cLsQL5mRvvrQMb42gF0v3hpF2PZCLG5zaFqd9eP7ZAPA9g1YZCMVEtXJC8w1ZCZC1qvaZBkcYC1keHgxhrr79CCCsHbnF6wPEQNH5KRABkevucLQC5P4oFdfHbRLoxVINDZCEB6tmGEYk7XUKTGOtxkI5p9B6h9Yntlg3JQaIZD';
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId      : '627209833972894', // App ID
+                    channelUrl : '//localhost:3001', // Channel File
+                    status     : true, // check login status
+                    cookie     : true, // enable cookies to allow the server to access the session
+                    xfbml      : true  // parse XFBML
+                });
 
-                $scope.attendings = [];
-                $scope.addAttending = function (attending) {
-                    $scope.attendings.push({name : attending.name})
-                };
-
-                $http.get('/party/528109093914436?token='+token).success(function (data) {  
-                    if (data.party) {
-                        for (var i = 0; i < data.party.attendings.length; i++) {
-                            $scope.addAttending(data.party.attendings[i]);
-                        }
+                FB.Event.subscribe('auth.authResponseChange', function(response) {
+                    if (response.status === 'connected') {
+                        console.log(response);
+                    } else {
+                        FB.login
                     }
                 });
             }
@@ -28,28 +40,9 @@
                 <a href="/">party ranking</a>
             </div>
             <div id="signup">
-                <a href="/auth">login</a>
+                <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
             </div>
         </div>
-        <div ng-controller="Party">
-            <div id="party-info">
-            
-            </div>
-            <ul id="party-attendings">
-                <li ng-repeat="attending in attendings">
-                    <div class="attending-thumbnail">
-                        
-                    </div>
-                    <div class="attending-name">
-                        {{attending.name}}
-                    </div>
-                    <ul class="attending-votes">
-                    </ul>
-                    <div class="attending-vote">
-
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <div ng-view></div>
     </body>
 </html>
